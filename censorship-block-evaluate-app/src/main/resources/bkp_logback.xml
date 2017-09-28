@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <property name="LOG_FILE_ADD" value="./logs" /> 
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<property name="LOG_FILE" value="/spring.log"/>
+	
+
+	<appender name="ROLLIN"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- <encoder> -->
+		<File>${LOG_FILE_ADD}/logging.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+			<!-- daily rollover -->
+			<fileNamePattern>${LOG_FILE_ADD}/logging.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+
+		</rollingPolicy>
+		<!-- </encoder> -->
+		<encoder>
+			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level - %msg%n</Pattern>
+		</encoder>
+	</appender>
+
+
+	<logger name="com.global" level="INFO" additivity="false">
+		<appender-ref ref="ROLLIN" />
+		<!-- <appender-ref ref="FILE"/> -->
+	</logger>
+</configuration>
